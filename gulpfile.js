@@ -32,7 +32,7 @@ gulp.task('fileinclude', function() {
 var concat= require('gulp-concat');
 
 gulp.task('concat', function() { //合併檔案
-	var concat1=gulp.src(['develop/js/1.js', 'develop/js/2.js'])
+	var concat1=gulp.src(['develop/js/*.js'])
 		.pipe(gulpPlumber())
 		.pipe(concat('main.js'))
 		.pipe(gulp.dest('./public/src/build/js'));
@@ -40,7 +40,7 @@ gulp.task('concat', function() { //合併檔案
 //		.pipe(gulpPlumber())
 //		.pipe(gulp.dest('./public/src/build/js'));
 //	return merge(concat1, concat2);
-    return merge(concat1);
+//    return merge(concat1);
 });
 
 //gulp-less
@@ -53,7 +53,7 @@ gulp.task('concat_css', function () {
     var scssStream = gulp.src('develop/css/*.scss')
         .pipe(sass())
     var cssStream = gulp.src('develop/css/*.css')
-    var mergedStream = merge(lessStream, cssStream)
+    var mergedStream = merge(scssStream,lessStream,cssStream)
         .pipe(concat('main.css'))
         .pipe(gulp.dest('./public/src/build/css'));
     return mergedStream;
@@ -107,16 +107,16 @@ gulp.task('watch', function () {
 })
 
 
+//初始化建專案 (第一次執行專案時)
+gulp.task('build', ['fileinclude','concat_css','concat','copy']);
+
 //清除public資料夾檔案
 gulp.task('clear', function(){ 
   return _del('./public', {force:true});
 });
 
-//預設執行 
+//預設執行(直接打gulp即可)
 gulp.task('default', ['watch','fileinclude','concat_css','webserver','concat','copy']);
-
-//初始化建專案
-gulp.task('build', ['fileinclude','concat_css','concat','copy']);
 
 //deploy 前執行的最小化檔案
 gulp.task('deploy', ['imagemin','html','cssmin','gulpUglify']);
