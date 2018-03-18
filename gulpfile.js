@@ -62,12 +62,13 @@ gulp.task('concat', function() { //合併檔案
 //gulp-sass
 var sass = require('gulp-sass');
 gulp.task('concat_css', function () {
-    var scssStream = gulp.src(['develop/css/normalize.scss','develop/css/*.scss'])
+    var scssStream = gulp.src(['develop/css/normalize.scss',"develop/css/global.scss",'develop/css/*.scss'])
         .pipe(gulpPlumber())
         .pipe(sass())
         .pipe(concat('main.css'))
         .pipe(gulp.dest('./public/src/build/css'));
 });
+
 
 var imagemin = require('gulp-imagemin');
 gulp.task('imagemin',function(){
