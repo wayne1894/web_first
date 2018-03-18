@@ -43,20 +43,30 @@ gulp.task('concat', function() { //合併檔案
 //    return merge(concat1);
 });
 
-//gulp-less
-var less = require('gulp-less');
+////gulp-less
+//var less = require('gulp-less');
+////gulp-sass
+//var sass = require('gulp-sass');
+//gulp.task('concat_css', function () {
+//    var lessStream = gulp.src('develop/css/*.less')
+//        .pipe(less())
+//    var scssStream = gulp.src('develop/css/*.scss')
+//        .pipe(sass())
+//    var cssStream = gulp.src('develop/css/*.css')
+//    var mergedStream = merge(scssStream,lessStream,cssStream)
+//        .pipe(concat('main.css'))
+//        .pipe(gulp.dest('./public/src/build/css'));
+//    return mergedStream;
+//});
+
 //gulp-sass
 var sass = require('gulp-sass');
 gulp.task('concat_css', function () {
-    var lessStream = gulp.src('develop/css/*.less')
-        .pipe(less())
-    var scssStream = gulp.src('develop/css/*.scss')
+    var scssStream = gulp.src(['develop/css/normalize.scss','develop/css/*.scss'])
+        .pipe(gulpPlumber())
         .pipe(sass())
-    var cssStream = gulp.src('develop/css/*.css')
-    var mergedStream = merge(scssStream,lessStream,cssStream)
         .pipe(concat('main.css'))
         .pipe(gulp.dest('./public/src/build/css'));
-    return mergedStream;
 });
 
 var imagemin = require('gulp-imagemin');
@@ -101,7 +111,7 @@ gulp.task('copy', function() { //複製靜態檔案
 gulp.task('watch', function () {
 	gulp.watch(['develop/*.html'], ['fileinclude']);
 	gulp.watch(['develop/include/*.html'], ['fileinclude']);
-	gulp.watch(['develop/css/*.scss','develop/css/*.less','develop/css/*.css'], ['concat_css']);
+	gulp.watch(['develop/css/*.scss'], ['concat_css']);
 	gulp.watch(['develop/js/*.js'], ['concat']);
 	gulp.watch(['develop/static'], ['copy']);
 })
