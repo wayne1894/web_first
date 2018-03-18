@@ -101,7 +101,7 @@ gulp.task('copy', function() { //複製靜態檔案
 gulp.task('watch', function () {
 	gulp.watch(['develop/*.html'], ['fileinclude']);
 	gulp.watch(['develop/include/*.html'], ['fileinclude']);
-	gulp.watch(['develop/css/*.less'], ['concat_css']);
+	gulp.watch(['develop/css/*.scss','develop/css/*.less','develop/css/*.css'], ['concat_css']);
 	gulp.watch(['develop/js/*.js'], ['concat']);
 	gulp.watch(['develop/static'], ['copy']);
 })
