@@ -72,7 +72,7 @@ gulp.task('concat_css', function () {
 
 var imagemin = require('gulp-imagemin');
 gulp.task('imagemin',function(){
-    gulp.src(['public/src/static/images/*','public/src/static/images/*/*'])
+    gulp.src(['public/src/static/images/**'])
 		.pipe(imagemin())
 		.pipe(gulp.dest('./public/src/sconcattatic/images'));
 });
@@ -100,7 +100,7 @@ gulp.task('gulpUglify', function () {
 });
 
 gulp.task('copy', function() { //複製靜態檔案
-	var copy1=gulp.src(['develop/static/*/*','develop/static/*/*/*'])
+	var copy1=gulp.src(['develop/static/**'])
 	  .pipe(gulp.dest('./public/src/static/'));
 	var copy2=gulp.src(['./favicon.ico'])
 		.pipe(gulp.dest('./public/'));
@@ -114,7 +114,7 @@ gulp.task('watch', function () {
 	gulp.watch(['develop/include/*.html'], ['fileinclude']);
 	gulp.watch(['develop/css/*.scss'], ['concat_css']);
 	gulp.watch(['develop/js/*.js'], ['concat']);
-	gulp.watch(['develop/static'], ['copy']);
+	gulp.watch(['develop/static/**'], ['copy']);
 })
 
 
