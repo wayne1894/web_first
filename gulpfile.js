@@ -61,11 +61,18 @@ gulp.task('concat', function() { //合併檔案
 
 //gulp-sass
 var sass = require('gulp-sass');
-gulp.task('concat_css', function () {
-    var scssStream = gulp.src(['develop/css/normalize.scss','develop/css/*.scss'])
+//gulp.task('concat_css', function () {
+//    var scssStream = gulp.src(['develop/css/normalize.scss','develop/css/*.scss'])
+//        .pipe(gulpPlumber())
+//        .pipe(sass())
+//        .pipe(concat('main.css'))
+//        .pipe(gulp.dest('./public/src/build/css'));
+//});
+
+gulp.task('scss', function () {
+    var scssStream = gulp.src(['develop/css/*.scss'])
         .pipe(gulpPlumber())
         .pipe(sass())
-        .pipe(concat('main.css'))
         .pipe(gulp.dest('./public/src/build/css'));
 });
 
@@ -119,7 +126,7 @@ gulp.task('watch', function () {
 
 
 //初始化建專案 (第一次執行專案時)
-gulp.task('build', ['fileinclude','concat_css','concat','copy']);
+gulp.task('build', ['fileinclude','scss','concat','copy']);
 
 //清除public資料夾檔案
 gulp.task('clear', function(){ 
@@ -127,7 +134,7 @@ gulp.task('clear', function(){
 });
 
 //預設執行(直接打gulp即可)
-gulp.task('default', ['watch','fileinclude','concat_css','webserver','concat','copy']);
+gulp.task('default', ['watch','fileinclude','scss','webserver','concat','copy']);
 
 //deploy 前執行的最小化檔案
 gulp.task('deploy', ['imagemin','html','cssmin','gulpUglify']);
