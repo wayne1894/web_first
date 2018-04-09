@@ -81,7 +81,7 @@ var imagemin = require('gulp-imagemin');
 gulp.task('imagemin',function(){
     gulp.src(['public/src/static/images/**'])
 		.pipe(imagemin())
-		.pipe(gulp.dest('./public/src/sconcattatic/images'));
+		.pipe(gulp.dest('./public/src/static/images'));
 });
 
 
