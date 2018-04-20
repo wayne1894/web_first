@@ -130,7 +130,8 @@ gulp.task('watch', function () {
 	gulp.watch(['develop/*.html'], ['fileinclude']);
 	gulp.watch(['develop/include/*.html'], ['fileinclude']);
 	gulp.watch(['develop/css/*.scss'], ['scss']);
-	gulp.watch(['develop/js/*.js'], ['concat']);
+//	gulp.watch(['develop/js/*.js'], ['concat']);
+  gulp.watch(['develop/js/**'], ['jsImport']);
 	gulp.watch(['develop/src/**'], ['copy']);
 })
 
