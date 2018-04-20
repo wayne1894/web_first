@@ -117,10 +117,12 @@ gulp.task('gulpUglify', function () {
 });
 
 gulp.task('copy', function() { //複製靜態檔案
-	var copy1=gulp.src(['develop/src/**'])
-	  .pipe(gulp.dest('./public/src/static/'));
+	var copy1=gulp.src(['develop/img/**'])
+	  .pipe(gulp.dest('./public/src/static/images'));
 	var copy2=gulp.src(['./favicon.ico'])
 		.pipe(gulp.dest('./public/'));
+  var copy1=gulp.src(['develop/js/static/**'])
+	  .pipe(gulp.dest('./public/src/static/js'));
 });
 
 
@@ -131,8 +133,8 @@ gulp.task('watch', function () {
 	gulp.watch(['develop/include/*.html'], ['fileinclude']);
 	gulp.watch(['develop/css/*.scss'], ['scss']);
 //	gulp.watch(['develop/js/*.js'], ['concat']);
-  gulp.watch(['develop/js/**'], ['jsImport']);
-	gulp.watch(['develop/src/**'], ['copy']);
+	gulp.watch(['develop/js/*.js','develop/js/partials/**'], ['jsImport']);
+	gulp.watch(['develop/src/**','develop/js/static'], ['copy']);
 })
 
 
