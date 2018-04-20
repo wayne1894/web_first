@@ -28,20 +28,30 @@ gulp.task('fileinclude', function() {
 	.pipe(gulp.dest('./public'));
 });
 
-// gulp-concatnpm 
-var concat= require('gulp-concat');
-
-gulp.task('concat', function() { //合併檔案
-	var concat1=gulp.src(['develop/js/*.js'])
-		.pipe(gulpPlumber())
-		.pipe(concat('main.js'))
-		.pipe(gulp.dest('./public/src/build/js'));
-//	var concat2= gulp.src(['develop/js/firebase_init.js'])
-//		.pipe(gulpPlumber())
-//		.pipe(gulp.dest('./public/src/build/js'));
-//	return merge(concat1, concat2);
-//    return merge(concat1);
+//gulp-js-import
+var jsImport = require('gulp-js-import');
+gulp.task('jsImport', function() {
+  return gulp.src(['develop/js/*.js'])
+        .pipe(jsImport({hideConsole: true}))
+        .pipe(gulpPlumber())
+        .pipe(gulp.dest('./public/src/build/js'));
 });
+
+
+//// gulp-concatnpm 
+//var concat= require('gulp-concat');
+//
+//gulp.task('concat', function() { //合併檔案
+//	var concat1=gulp.src(['develop/js/*.js'])
+//		.pipe(gulpPlumber())
+//		.pipe(concat('main.js'))
+//		.pipe(gulp.dest('./public/src/build/js'));
+////	var concat2= gulp.src(['develop/js/firebase_init.js'])
+////		.pipe(gulpPlumber())
+////		.pipe(gulp.dest('./public/src/build/js'));
+////	return merge(concat1, concat2);
+////    return merge(concat1);
+//});
 
 ////gulp-less
 //var less = require('gulp-less');
@@ -107,7 +117,7 @@ gulp.task('gulpUglify', function () {
 });
 
 gulp.task('copy', function() { //複製靜態檔案
-	var copy1=gulp.src(['develop/src/static/**'])
+	var copy1=gulp.src(['develop/src/**'])
 	  .pipe(gulp.dest('./public/src/static/'));
 	var copy2=gulp.src(['./favicon.ico'])
 		.pipe(gulp.dest('./public/'));
@@ -121,12 +131,12 @@ gulp.task('watch', function () {
 	gulp.watch(['develop/include/*.html'], ['fileinclude']);
 	gulp.watch(['develop/css/*.scss'], ['scss']);
 	gulp.watch(['develop/js/*.js'], ['concat']);
-	gulp.watch(['develop/src/static/**'], ['copy']);
+	gulp.watch(['develop/src/**'], ['copy']);
 })
 
 
 //初始化建專案 (第一次執行專案時)
-gulp.task('build', ['fileinclude','scss','concat','copy']);
+gulp.task('build', ['fileinclude','scss','jsImport','copy']);
 
 //清除public資料夾檔案
 gulp.task('clear', function(){ 
@@ -134,7 +144,7 @@ gulp.task('clear', function(){
 });
 
 //預設執行(直接打gulp即可)
-gulp.task('default', ['watch','fileinclude','scss','webserver','concat','copy']);
+gulp.task('default', ['watch','fileinclude','scss','webserver','jsImport','copy']);
 
 //deploy 前執行的最小化檔案
 gulp.task('deploy', ['imagemin','html','cssmin','gulpUglify']);

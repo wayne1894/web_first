@@ -27,7 +27,8 @@
     "merge-stream": "^1.0.1"
   },
   "devDependencies": {
-    "gulp": "^3.9.1"
+    "gulp": "^3.9.1",
+    "gulp-js-import": "^1.0.6"
   },
   "scripts": {
     "deploy": "gulp clear && gulp build && gulp deploy"
